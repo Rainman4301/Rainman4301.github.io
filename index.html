@@ -139,19 +139,19 @@
     .project-link:hover { color: var(--accent); }
     .project-arrow { font-size: 0.9rem; opacity: 0.2; transition: opacity 0.2s, transform 0.2s; }
 
-    /* Dashboard embed */
-    .dashboard-embed {
+    /* Dashboard preview */
+    .dashboard-preview {
       margin-top: 1.5rem;
-      border: 1px solid var(--border);
-      background: var(--ink);
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
     }
-    .dashboard-embed-label {
+    .dashboard-preview-label {
       font-size: 0.55rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(245,242,235,0.4);
+      color: rgba(245,242,235,0.5);
       padding: 0.5rem 0.8rem;
       background: var(--ink);
       border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -159,7 +159,7 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .dashboard-embed-label::before {
+    .dashboard-preview-label::before {
       content: '';
       width: 6px;
       height: 6px;
@@ -167,25 +167,46 @@
       background: #4caf50;
       display: inline-block;
     }
-    .dashboard-embed iframe {
+    .dashboard-preview img {
       width: 100%;
-      height: 360px;
-      border: none;
+      height: 300px;
+      object-fit: cover;
+      object-position: top;
       display: block;
+      transition: transform 0.5s ease;
+      filter: brightness(0.92);
     }
-    .dashboard-embed-fallback {
-      display: none;
-      padding: 2rem;
-      text-align: center;
-      color: rgba(245,242,235,0.5);
+    .dashboard-preview:hover img {
+      transform: scale(1.02);
+      filter: brightness(0.6);
+    }
+    .dashboard-preview-overlay {
+      position: absolute;
+      inset: 0;
+      top: 28px; /* below label bar */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .dashboard-preview:hover .dashboard-preview-overlay {
+      opacity: 1;
+    }
+    .dashboard-preview-overlay span {
       font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      font-family: 'DM Mono', monospace;
     }
-    .dashboard-embed-fallback a {
+    .dashboard-preview-overlay svg {
+      width: 32px;
+      height: 32px;
       color: var(--accent);
-      text-decoration: none;
-    }
-    .dashboard-embed-fallback a:hover {
-      text-decoration: underline;
     }
 
     /* Project links row */
@@ -485,21 +506,21 @@
         <div class="project-lang">Docker Compose · Airflow · dbt · Superset · GitHub Actions · Azure VM</div>
         <div class="project-desc">End-to-end containerised weather data pipeline orchestrated by Airflow — from API ingestion, through dbt SQL transformations, to a live Apache Superset dashboard. Six services (PostgreSQL, Airflow, dbt, Superset, Redis, Cloudflare Tunnel) are managed by Docker Compose on Azure VM. A GitHub Actions CI/CD pipeline runs automated DAG validation, dbt parsing, and database connectivity tests before deploying via SSH with credentials injected from GitHub Secrets at runtime — no secrets ever touch the repository.</div>
 
-        <!-- Live dashboard embed -->
-        <div class="dashboard-embed" id="dashboardEmbed">
-          <div class="dashboard-embed-label">Live Dashboard · superset.rainsunny.org</div>
-          <iframe
-            id="supersetFrame"
-            src="https://superset.rainsunny.org/superset/dashboard/1/?standalone=3&show_filters=0"
-            title="Weather Analytics Dashboard"
-            allow="fullscreen"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-          ></iframe>
-          <div class="dashboard-embed-fallback" id="embedFallback">
-            <p>Dashboard preview unavailable in this context.</p>
-            <p style="margin-top:0.5rem;"><a href="https://superset.rainsunny.org/superset/dashboard/1/" target="_blank">Open live dashboard ↗</a></p>
+        <!-- Dashboard preview — click opens live dashboard -->
+        <a href="https://superset.rainsunny.org/superset/dashboard/1/" target="_blank" class="dashboard-preview" title="Open live dashboard">
+          <div class="dashboard-preview-label">Live Dashboard · superset.rainsunny.org</div>
+          <img
+            src="assets/weather-forecast-report.jpg"
+            alt="Weather Analytics Dashboard Preview"
+            onerror="this.style.background='#1a1a24';this.style.height='200px';"
+          >
+          <div class="dashboard-preview-overlay">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+            </svg>
+            <span>Open Live Dashboard</span>
           </div>
-        </div>
+        </a>
 
         <div class="project-footer" style="margin-top:1.2rem;">
           <div class="project-links-row">
@@ -600,28 +621,7 @@
     document.querySelectorAll('.project-card').forEach((c, i) => { c.style.transitionDelay = `${i * 0.07}s`; });
     document.querySelectorAll('.exp-item').forEach((c, i) => { c.style.transitionDelay = `${i * 0.1}s`; });
 
-    // Dashboard iframe fallback — if iframe fails to load, show fallback message
-    const frame = document.getElementById('supersetFrame');
-    const fallback = document.getElementById('embedFallback');
-    let iframeLoaded = false;
 
-    frame.addEventListener('load', () => {
-      iframeLoaded = true;
-    });
-
-    // Give the iframe 8 seconds; if it hasn't signalled load, show the fallback link
-    setTimeout(() => {
-      if (!iframeLoaded) {
-        frame.style.display = 'none';
-        fallback.style.display = 'block';
-      }
-    }, 8000);
-
-    // Also handle cases where the frame errors out
-    frame.addEventListener('error', () => {
-      frame.style.display = 'none';
-      fallback.style.display = 'block';
-    });
   </script>
 
 </body>
