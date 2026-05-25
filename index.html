@@ -127,12 +127,16 @@
     .btn-icon { width: 42px; height: 42px; border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); transition: border-color 0.2s, color 0.2s, transform 0.2s; }
     .btn-icon:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .btn-icon svg { width: 16px; height: 16px; }
-    .hero-right { position: relative; display: flex; align-items: center; justify-content: center; padding: 4rem; }
-    .hero-photo-frame { position: relative; width: 340px; height: 420px; }
+    .hero-right { position: relative; display: flex; align-items: center; justify-content: center; padding: 4rem 4rem 4rem 4rem; }
+    .hero-photo-frame { position: relative; width: 340px; height: 420px; margin-bottom: 80px; margin-right: 130px; }
     .hero-photo-frame::before { content: ''; position: absolute; top: 18px; left: 18px; right: -18px; bottom: -18px; border: 1.5px solid var(--accent); z-index: 0; }
     .hero-photo-fallback { position: relative; z-index: 1; width: 100%; height: 100%; background: var(--cream); display: flex; align-items: center; justify-content: center; }
     .hero-photo-fallback svg { width: 80px; height: 80px; color: var(--muted); opacity: 0.4; }
-    .hero-photo-frame img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); }
+    .hero-photo-frame img.main-photo { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); }
+    .hero-photo-casual-wrap { position: absolute; bottom: -80px; right: -150px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transform: rotate(5deg);}
+    .hero-photo-cocktail { width: 118px; height: 148px; object-fit: cover; display: block; border: 3px solid var(--paper); box-shadow: 0 6px 24px rgba(10,10,15,0.22); filter: grayscale(10%);}
+    .hero-photo-caption { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; color: var(--muted); white-space: nowrap; display: flex; align-items: center; gap: 0.35rem;}
+    .hero-photo-caption .cap-star { color: var(--accent); font-size: 0.65rem;}
     .hero-stats { display: flex; gap: 3rem; }
     .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.2rem; line-height: 1; color: var(--ink); }
     .stat-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
@@ -377,9 +381,13 @@
     </div>
     <div class="hero-right">
       <div class="hero-photo-frame">
-        <img src="assets/Photo Formal 4x6.png" alt="Rain Liao" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img class="main-photo" src="assets/Photo Formal 4x6.png" alt="Rain Liao" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="hero-photo-fallback" style="display:none;">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        </div>
+        <div class="hero-photo-casual-wrap">
+          <img src="assets/cocktail.jpg" alt="Rain Liao — casual" class="hero-photo-cocktail">
+          <div class="hero-photo-caption">off the clock <span class="cap-star">★</span></div>
         </div>
       </div>
     </div>
