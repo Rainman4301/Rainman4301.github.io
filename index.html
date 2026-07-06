@@ -201,7 +201,16 @@
     .project-card { padding: 2.2rem; border: 1px solid var(--border); margin: -1px 0 0 -1px; display: flex; flex-direction: column; transition: background 0.2s; }
     .project-card:hover { background: var(--paper); }
     .project-card:hover .project-arrow { opacity: 1; transform: translate(3px,-3px); }
-    .project-card.featured { grid-column: span 2; }
+    .project-card.featured { grid-column: 1 / -1; }
+    .project-image {
+      width: 100%;
+      height: 190px;
+      object-fit: contain;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+    }
     .project-num { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: rgba(10,10,15,0.08); line-height: 1; margin-bottom: 0.6rem; }
     .project-badge { display: inline-block; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; background: var(--accent); color: #fff; margin-bottom: 0.6rem; align-self: flex-start; }
     .project-name { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem; }
@@ -655,7 +664,8 @@
         <div class="project-badge">Published · Springer Nature</div>
         <div class="project-name">Mental Health Topic Modelling</div>
         <div class="project-lang">Python · MentalBERT · BERTopic · Network Analysis · LangChain</div>
-        <div class="project-desc">Applied MentalBERT-enhanced BERTopic to 100,000+ Beyond Blue forum posts, surfacing 10 recurring themes around medication, therapy, and work stress. Built a visual subtopic network revealing how Australians express distress and engage in peer support — with a LangChain RAG chatbot for context-aware responses. Accepted at ICRTCIS 2025, published in Springer Nature proceedings 2026.</div>
+        <img src="assets/network.svg" alt="Subtopic network graph — mental health forum themes" class="project-image">
+        <div class="project-desc">Applied MentalBERT-enhanced BERTopic to 10,000+ Beyond Blue forum posts, surfacing 10 recurring themes around medication, therapy, and work stress. Built a visual subtopic network revealing how Australians express distress and engage in peer support — with a LangChain RAG chatbot for context-aware responses. Accepted at ICRTCIS 2025, published in Springer Nature proceedings 2026.</div>
         <div class="project-footer">
           <div class="project-links-row">
             <a href="https://github.com/Rainman4301/mental-health-network-rag" class="project-link" target="_blank">GitHub →</a>
