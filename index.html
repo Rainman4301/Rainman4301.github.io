@@ -668,10 +668,10 @@
       <!-- Project 03 -->
       <div class="project-card fade-up">
         <div class="project-num">03</div>
-        <div class="project-badge">Algo Trading</div>
-        <div class="project-name">Binance Delist Strategy</div>
-        <div class="project-lang">Python · Freqtrade · Docker · Azure VM</div>
-        <div class="project-desc">Automated trading system that detects Binance delisting announcements in real-time, tracks affected asset price movements, and executes trades with stop-loss and take-profit mechanisms — capitalising on rapid market reactions with disciplined risk management. Containerised and deployed to Azure VM as part of the AIML quant research pipeline, processing 100GB+ of historical Binance market data.</div>
+        <div class="project-badge">Algo Trading · In Progress</div>
+        <div class="project-name">Binance Delisting Strategy</div>
+        <div class="project-lang">Python · python-binance · Selenium · BeautifulSoup · pandas</div>
+        <div class="project-desc">Automated pipeline that detects Binance delisting announcements and opens risk-managed short positions on the affected pairs. A Selenium-based crawler scrapes the delisting board and diffs new announcements against previously-seen ones; a margin trading module sizes positions from available balance and opens isolated-margin shorts via the Binance API. Entry logic and position sizing are implemented and tested against historical announcement data; exit-side stop-loss/take-profit monitoring is still being refined.</div>
         <div class="project-footer">
           <a href="https://github.com/Rainman4301/delist_strategy_binance" class="project-link" target="_blank">View Code →</a>
           <span class="project-arrow">↗</span>
